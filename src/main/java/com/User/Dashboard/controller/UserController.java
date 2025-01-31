@@ -64,10 +64,19 @@ public class UserController {
 
     @GetMapping("/user-details/{username}")
     public ResponseEntity<?> getUserDetails(@PathVariable String username) {
-        return userDetailService.findByUsername(username)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        Optional<UsersDetails> userDetails = userDetailService.findByUsername(username);
+        if (userDetails.isPresent()) {
+            return ResponseEntity.ok(userDetails);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
+
+    @GetMapping("/findall-details")
+    public List<UsersDetails> getUserDetails() {
+        return userDetailService.findAll();
+    }
+
 
     // Organization Details endpoints
     @PostMapping("/org-details/{username}")
@@ -87,5 +96,12 @@ public class UserController {
         return ResponseEntity.ok(orgDetails);
     }
 
-  
+    @GetMapping("/find-all-userOrg")
+    public List<UserOrgDetails> findAllUserOrg () {
+
+        return userOrgService.findAllUserOrg();
+
+    }
+
+
 }

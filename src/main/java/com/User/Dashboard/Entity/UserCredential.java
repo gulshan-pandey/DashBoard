@@ -1,5 +1,6 @@
 package com.User.Dashboard.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,7 +13,8 @@ public class UserCredential {
     private String password;
 
     @OneToOne(mappedBy = "userCredential", cascade = CascadeType.ALL)
-    private UsersDetails usersDetails;
+    @JsonManagedReference("usercred")
+    public UsersDetails usersDetails;
 
 
     public UserCredential() {

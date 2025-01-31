@@ -27,16 +27,25 @@ public class UserOrgService {
         UsersDetails usersDetails = userDetailsRepo.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("Please complete personal details registration first"));
 
+        if (userOrgRepo.findByUsername(username).isPresent()) {
+            throw new RuntimeException("Organization details already exist for this user");
+        }
+
         UserOrgDetails userOrgDetails = new UserOrgDetails(
+                username,
                 dto.getManagerName(),
                 dto.getOrganization(),
                 dto.getCompanyAddress()
         );
-        userOrgDetails.setUsersDetails(usersDetails);
 
         UserOrgDetails saved = userOrgRepo.save(userOrgDetails);
+
+        usersDetails.setUserOrgDetails(saved);
+        userDetailsRepo.save(usersDetails);
+
         return "Organization details saved for user " + username;
     }
+
 
     public UserOrgDetails findByUsername(String username) {
         return userOrgRepo.findByUsersDetails_Username(username);
@@ -45,4 +54,5 @@ public class UserOrgService {
     public List<UserOrgDetails> findAllUserOrg() {
         return userOrgRepo.findAll();
     }
+
 }

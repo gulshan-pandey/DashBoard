@@ -2,6 +2,7 @@ package com.User.Dashboard.Entity;
 
 import com.User.Dashboard.Entity.UserCredential;
 import com.User.Dashboard.Entity.UserOrgDetails;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class UsersDetails {
 
     @OneToOne
     @JoinColumn(name = "email", unique = true)
+    @JsonIgnore
     private UserCredential userCredential;
 
     @Column(length = 10)

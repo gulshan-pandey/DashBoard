@@ -32,7 +32,6 @@ public class UserOrgDetailsDTO {
         this.companyAddress = companyAddress;
     }
 
-    // Constructor
     public UserOrgDetailsDTO(String managerName, String organization, String companyAddress) {
         this.managerName = managerName;
         this.organization = organization;

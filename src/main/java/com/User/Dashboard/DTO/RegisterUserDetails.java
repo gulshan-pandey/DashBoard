@@ -4,7 +4,6 @@ public class RegisterUserDetails {
 
 
     private String username;
-    private String password;
     private String phone;
     private int age;
     private String address;

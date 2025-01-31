@@ -1,5 +1,6 @@
 package com.User.Dashboard.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 
@@ -11,7 +12,8 @@ public class UserOrgDetails {
     private String username;
 
     @OneToOne
-    @JoinColumn(name = "username")
+    @JoinColumn(name = "username", referencedColumnName = "username", insertable = false, updatable = false)
+    @JsonIgnore
     private UsersDetails usersDetails;
 
     @Column
@@ -23,22 +25,20 @@ public class UserOrgDetails {
     @Column
     private String companyAddress;
 
-    // Constructors
     public UserOrgDetails() {}
 
-    public UserOrgDetails(String managerName, String organization, String companyAddress) {
+    public UserOrgDetails(String username, String managerName, String organization, String companyAddress) {
+        this.username = username;
         this.managerName = managerName;
         this.organization = organization;
         this.companyAddress = companyAddress;
     }
 
-    // Getters and setters
     public String getUsername() { return username; }
     public void setUsername(String username) { this.username = username; }
     public UsersDetails getUsersDetails() { return usersDetails; }
     public void setUsersDetails(UsersDetails usersDetails) {
         this.usersDetails = usersDetails;
-        this.username = usersDetails.getUsername();
     }
     public String getManagerName() { return managerName; }
     public void setManagerName(String managerName) { this.managerName = managerName; }
