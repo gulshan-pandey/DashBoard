@@ -26,7 +26,7 @@ public class UserDetailService {
     private UserCredentialsRepo userCredentialsRepo;
 
     public Optional<UsersDetails> findByUsername(String username) {
-        return userDetailsRepo.findByUsername(username);
+        return userDetailsRepo.findByUserCredential_Email(username);
     }
 
     public String registerUserPersonalInfo(String email,RegisterUserDetails registerUserDetails) {
